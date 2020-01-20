@@ -2,9 +2,12 @@ package com.avalon.topmovies;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.avalon.topmovies.model.Movie;
@@ -22,7 +25,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private ListView listView;
 
@@ -32,9 +35,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         listView = findViewById(R.id.list);
-
+        listView.setOnItemClickListener(this);
         new ConnectToDb().execute("https://api.themoviedb.org/3/movie/popular?api_key=d1bd0a1a2ca017e55c2ef6c6c35cf934");
+
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(this, DatePicker.class);
+        intent.putExtra("MOVIE", (Movie)parent.getItemAtPosition(position));
+        startActivity(intent);
+
+    }
+
 
     private class ConnectToDb extends AsyncTask<String, Void, String> {
         @Override
@@ -75,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject object = jsonArray.getJSONObject(i);
                     Movie movie = new Movie(
                             object.getString("original_title"),
-                            object.getDouble("popularity"),
+                            object.getDouble("vote_average"),
                             object.getString("poster_path"),
                             object.getString("overview"),
                             object.getString("release_date"));
@@ -85,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
                 MoviesAdapter moviesAdapter = new MoviesAdapter(MainActivity.this, R.layout.movies_list, movies);
                 listView.setAdapter(moviesAdapter);
-            } catch (JSONException e) {
+           } catch (JSONException e) {
                 Log.e("Error: ", e.getMessage(), e);
             }
         }

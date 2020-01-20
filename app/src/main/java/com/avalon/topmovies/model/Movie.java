@@ -4,16 +4,17 @@ import java.io.Serializable;
 
 public class Movie implements Serializable {
 
-    private double popularity;
+    private double voteAverage;
     private String posterPath;
     private String originalTitle;
     private String overview;
     private String releaseDate;
 
+
     public Movie(){};
 
-    public Movie(String originalTitle, double popularity, String posterPath, String overview, String releaseDate) {
-        this.popularity = popularity;
+    public Movie(String originalTitle, double voteAverage, String posterPath, String overview, String releaseDate) {
+        this.voteAverage = voteAverage * 10;
         this.posterPath = posterPath;
         this.originalTitle = originalTitle;
         this.overview = overview;
@@ -21,7 +22,7 @@ public class Movie implements Serializable {
     }
 
     public void setPopularity(double popularity) {
-        this.popularity = popularity;
+        this.voteAverage = popularity;
     }
 
     public void setPosterPath(String posterPath) {
@@ -41,7 +42,7 @@ public class Movie implements Serializable {
     }
 
     public double getPopularity() {
-        return popularity;
+        return voteAverage;
     }
 
     public String getPosterPath() {

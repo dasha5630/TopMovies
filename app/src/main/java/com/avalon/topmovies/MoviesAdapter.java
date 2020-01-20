@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,10 +35,17 @@ public class MoviesAdapter extends ArrayAdapter{
         View view = LayoutInflater.from(context).inflate(resource, parent, false);
 
         Movie movie = movies.get(position);
-        TextView movieName = (TextView) view.findViewById(R.id.textView);
-        ImageView image = (ImageView) view.findViewById(R.id.imageView);
+        TextView movieName = view.findViewById(R.id.textView);
+        TextView overview = view.findViewById(R.id.overview);
+        TextView popularity = view.findViewById(R.id.voteAverage);
+        TextView data = view.findViewById(R.id.data);
+
+        ImageView image = view.findViewById(R.id.imageView);
 
         movieName.setText(movie.getOriginalTitle());
+        overview.setText(movie.getOverview());
+        popularity.setText(String.valueOf(movie.getPopularity()));
+        data.setText(movie.getReleaseDate());
 
         Glide.with(context).load("https://image.tmdb.org/t/p/w500/" + movie.getPosterPath()).into(image);
         return  view;
@@ -50,4 +56,5 @@ public class MoviesAdapter extends ArrayAdapter{
     public Object getItem(int position) {
         return super.getItem(position);
     }
+
 }
