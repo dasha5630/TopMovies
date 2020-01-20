@@ -23,7 +23,6 @@
         </activity>
 
         <receiver android:name=".AlarmReceiver" />
-        <receiver android:name=".DatePicker" />
     </application>
 
 </manifest>

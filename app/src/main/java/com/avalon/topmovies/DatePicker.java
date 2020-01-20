@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -41,6 +42,7 @@ public class DatePicker extends AppCompatActivity implements View.OnClickListene
 
         AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
 
+
         switch (view.getId()) {
             case R.id.setBtn:
                 int hour = timePicker.getCurrentHour();
@@ -55,8 +57,11 @@ public class DatePicker extends AppCompatActivity implements View.OnClickListene
 
                 // Set alarm.
                 // set(type, milliseconds, intent)
-                alarm.set(AlarmManager.RTC_WAKEUP, alarmStartTime, alarmIntent);
-
+                if(Build.VERSION.SDK_INT >= 19){
+                    alarm.setExact(AlarmManager.RTC_WAKEUP, alarmStartTime, alarmIntent);
+                } else {
+                    alarm.set(AlarmManager.RTC_WAKEUP, alarmStartTime, alarmIntent);
+                }
                 Toast.makeText(this, "Done!", Toast.LENGTH_SHORT).show();
                 break;
 
