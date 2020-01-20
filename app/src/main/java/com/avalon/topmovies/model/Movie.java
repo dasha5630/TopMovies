@@ -4,24 +4,20 @@ import java.io.Serializable;
 
 public class Movie implements Serializable {
 
-    private String title;
     private double popularity;
     private String posterPath;
     private String originalTitle;
     private String overview;
     private String releaseDate;
 
-    public Movie(String title, double popularity, String posterPath, String originalTitle, String overview, String releaseDate) {
-        this.title = title;
+    public Movie(){};
+
+    public Movie(String originalTitle, double popularity, String posterPath, String overview, String releaseDate) {
         this.popularity = popularity;
         this.posterPath = posterPath;
         this.originalTitle = originalTitle;
         this.overview = overview;
         this.releaseDate = releaseDate;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public void setPopularity(double popularity) {
@@ -42,10 +38,6 @@ public class Movie implements Serializable {
 
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public double getPopularity() {
