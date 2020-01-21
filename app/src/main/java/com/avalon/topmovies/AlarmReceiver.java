@@ -22,12 +22,12 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Notification.Builder builder = new Notification.Builder(context);
         builder.setSmallIcon(android.R.drawable.ic_dialog_info)
-                .setContentTitle("It's Time!")
+                .setContentTitle("Movie to watch:")
+                .setTicker("New")
                 .setContentText(message)
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
-                .setContentIntent(contentIntent)
-                .setDefaults(Notification.DEFAULT_ALL);
+                .setContentIntent(contentIntent);
 
         myNotificationManager.notify(notificationId, builder.build());
 

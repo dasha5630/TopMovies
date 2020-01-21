@@ -61,9 +61,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-//        Intent intent = new Intent(this, DatePicker.class);
-//        intent.putExtra("MOVIE", (Movie)parent.getItemAtPosition(position));
-//        startActivity(intent);
         currentMovie = (Movie)parent.getItemAtPosition(position);
         calendar = Calendar.getInstance();
         datePickerDialog.show();
@@ -89,22 +86,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 0,
                 intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
         AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
 
         long alarmStartTime = calendar.getTimeInMillis();
 
-        // Set alarm.
-        // set(type, milliseconds, intent)
         if(Build.VERSION.SDK_INT >= 19){
             alarm.setExact(AlarmManager.RTC_WAKEUP, alarmStartTime, alarmIntent);
         } else {
             alarm.set(AlarmManager.RTC_WAKEUP, alarmStartTime, alarmIntent);
         }
-/*        Intent intent = new Intent(this, DatePicker.class);
-        intent.putExtra("todo", currentMovie.getOriginalTitle());
-        startActivity(intent);*/
-
     }
 
 
@@ -151,7 +141,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             object.getString("poster_path"),
                             object.getString("overview"),
                             object.getString("release_date"));
-                    movies.add(movie);
+                    if(movie.getReleaseDate().contains("2019")){
+                         movies.add(movie);
+                    }
                     Log.i("add in list", movie.getOriginalTitle());
                 }
 
